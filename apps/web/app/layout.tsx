@@ -3,6 +3,7 @@ import "./globals.css";
 import { QueryProvider } from "./_providers/query-provider";
 import { SupabaseProvider } from "./_providers/supabase-provider";
 import { Header } from "./_components/header";
+import { OfflineBanner } from "./_components/offline-banner";
 
 export const metadata: Metadata = {
   title: "moment-stock",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <SupabaseProvider>
             <Header />
             <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+            <OfflineBanner />
           </SupabaseProvider>
         </QueryProvider>
       </body>

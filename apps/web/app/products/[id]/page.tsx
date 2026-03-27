@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 import {
   useProductDetail,
+  useRealtimeStock,
+  useConnectionStore,
   formatPrice,
   useCartStore,
 } from "@repo/shared";
@@ -16,6 +18,14 @@ export default function ProductDetailPage() {
   const supabase = useSupabase();
   const { data: product, isLoading, error } = useProductDetail(supabase, productId);
   const addItem = useCartStore((s) => s.addItem);
+  const isOnline = useConnectionStore((s) => s.isOnline());
+
+  // 실시간 재고 구독
+  useRealtimeStock({
+    supabase,
+    productId,
+    enabled: !!product,
+  });
 
   if (isLoading) {
     return (
@@ -34,6 +44,7 @@ export default function ProductDetailPage() {
   }
 
   const isSoldOut = product.stock.level === "soldOut";
+  const isDisabled = isSoldOut || !isOnline;
 
   const handleAddToCart = () => {
     const item: CartItem = {
@@ -45,6 +56,18 @@ export default function ProductDetailPage() {
     };
     addItem(item);
   };
+
+  const buttonLabel = !isOnline
+    ? "오프라인 상태입니다"
+    : isSoldOut
+      ? "품절된 상품입니다"
+      : `${product.name} 장바구니에 담기`;
+
+  const buttonText = !isOnline
+    ? "오프라인"
+    : isSoldOut
+      ? "품절"
+      : "장바구니에 담기";
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
@@ -74,7 +97,7 @@ export default function ProductDetailPage() {
 
         <p className="text-3xl font-bold">{formatPrice(product.originalPrice)}</p>
 
-        {/* 재고 표시 (Phase 5에서 실시간 데이터 연결) */}
+        {/* 실시간 재고 표시 */}
         <StockDisplay
           quantity={product.stock.quantity}
           initialQuantity={product.stock.initialQuantity}
@@ -85,11 +108,11 @@ export default function ProductDetailPage() {
         <button
           type="button"
           onClick={handleAddToCart}
-          disabled={isSoldOut}
+          disabled={isDisabled}
           className="w-full min-h-[44px] rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400 motion-reduce:transition-none"
-          aria-label={isSoldOut ? "품절된 상품입니다" : `${product.name} 장바구니에 담기`}
+          aria-label={buttonLabel}
         >
-          {isSoldOut ? "품절" : "장바구니에 담기"}
+          {buttonText}
         </button>
       </div>
     </div>
