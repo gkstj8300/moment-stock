@@ -15,6 +15,12 @@ export function Header() {
 
         <nav className="flex items-center gap-4" aria-label="메인 네비게이션">
           <Link
+            href="/time-sale"
+            className="text-sm font-semibold text-red-500 hover:underline"
+          >
+            타임세일
+          </Link>
+          <Link
             href="/products"
             className="text-sm hover:underline"
           >

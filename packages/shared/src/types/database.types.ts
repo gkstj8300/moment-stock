@@ -268,11 +268,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admit_from_waitlist: {
+        Args: { p_count?: number; p_time_sale_id: string }
+        Returns: Json
+      }
       cancel_order: {
         Args: { p_order_id: string; p_user_id: string }
         Returns: Json
       }
+      confirm_payment: {
+        Args: { p_order_id: string; p_payment_id: string }
+        Returns: Json
+      }
       get_active_time_sales: { Args: never; Returns: Json }
+      join_waitlist: {
+        Args: { p_time_sale_id: string; p_user_id: string }
+        Returns: Json
+      }
       purchase_stock: {
         Args: {
           p_product_id: string
