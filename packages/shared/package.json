@@ -12,12 +12,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@supabase/ssr": "catalog:",
     "@supabase/supabase-js": "catalog:",
     "@tanstack/react-query": "catalog:",
     "zustand": "catalog:",
     "zod": "catalog:"
   },
+  "peerDependencies": {
+    "react": ">=18"
+  },
   "devDependencies": {
+    "@types/react": "^19.1.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "eslint": "catalog:",
