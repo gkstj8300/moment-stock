@@ -12,17 +12,23 @@
   "dependencies": {
     "@repo/shared": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@supabase/supabase-js": "catalog:",
+    "@supabase/ssr": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "expo": "~53.0.0",
     "expo-router": "~5.0.0",
+    "expo-secure-store": "~14.2.0",
     "expo-status-bar": "~2.2.0",
     "react": "catalog:",
     "react-native": "0.79.2",
     "react-native-screens": "~4.10.0",
-    "react-native-safe-area-context": "~5.4.0"
+    "react-native-safe-area-context": "~5.4.0",
+    "zustand": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
+    "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "eslint": "catalog:",
     "typescript": "catalog:"

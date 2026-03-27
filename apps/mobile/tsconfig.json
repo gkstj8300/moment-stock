@@ -1,6 +1,9 @@
 {
   "extends": "@repo/tsconfig/expo.json",
   "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["node"],
     "paths": {
       "@/*": ["./app/*"]
     }
