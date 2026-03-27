@@ -7,10 +7,15 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:gen-types": "node -e \"const{execSync}=require('child_process');const t=execSync('supabase gen types typescript --local',{encoding:'utf8'});require('fs').writeFileSync('packages/shared/src/types/database.types.ts',t);require('fs').writeFileSync('supabase/functions/_shared/database.types.ts',t);console.log('Types generated.')\"",
+    "db:reset": "supabase db reset",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop"
   },
   "devDependencies": {
     "prettier": "^3.5.0",
+    "supabase": "^2.84.4",
     "turbo": "^2.8.0"
   },
   "packageManager": "pnpm@10.27.0",

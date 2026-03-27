@@ -1,27 +1,20 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - apps/*
+  - packages/*
 
 catalog:
-  # Supabase
-  "@supabase/supabase-js": "^2.49.0"
-  "@supabase/ssr": "^0.6.0"
+  '@supabase/ssr': ^0.6.0
+  '@supabase/supabase-js': ^2.49.0
+  '@tanstack/react-query': ^5.75.0
+  eslint: ^9.24.0
+  react: ^19.1.0
+  react-dom: ^19.1.0
+  typescript: ^5.8.0
+  zod: ^3.24.0
+  zustand: ^5.0.0
 
-  # TanStack Query
-  "@tanstack/react-query": "^5.75.0"
+ignoredBuiltDependencies:
+  - sharp
 
-  # State Management
-  "zustand": "^5.0.0"
-
-  # Validation
-  "zod": "^3.24.0"
-
-  # React
-  "react": "^19.1.0"
-  "react-dom": "^19.1.0"
-
-  # TypeScript
-  "typescript": "^5.8.0"
-
-  # Linting
-  "eslint": "^9.24.0"
+onlyBuiltDependencies:
+  - supabase
