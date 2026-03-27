@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/tsconfig/expo.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

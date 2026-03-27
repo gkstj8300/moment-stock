@@ -20,6 +20,10 @@
 
 프론트엔드 코드를 작성하거나 수정할 때 반드시 `docs\rules\frontend-coding-rules.md`를 먼저 읽고 해당 규칙을 따른다.
 
+## Phase 완료 검토 규칙
+
+각 Phase 구현 완료 시 반드시 `docs/rules/phase-review-rule.md`를 읽고 해당 절차를 따른다. 자동화 테스트 → 회귀 테스트 → 페르소나별 교차 검토 → 완료 기준 대조 → 결과 기록 순서로 진행하며, 검토 결과는 `docs/reviews/phase-{N}-review.md`에 기록한다.
+
 ## 상수·타입 배치
 
 상수 분류, 타입 파일 배치, import 규칙, mapper 패턴은 `docs\rules\code-organization.md`를 참조한다.

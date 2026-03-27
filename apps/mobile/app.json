@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "moment-stock",
+    "slug": "moment-stock",
+    "version": "0.0.1",
+    "scheme": "moment-stock",
+    "platforms": ["ios", "android"],
+    "newArchEnabled": true
+  }
+}
