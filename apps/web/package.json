@@ -13,9 +13,13 @@
   "dependencies": {
     "@repo/shared": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@supabase/ssr": "catalog:",
+    "@supabase/supabase-js": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "next": "^15.3.1",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "zustand": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

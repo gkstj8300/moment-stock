@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { QueryProvider } from "./_providers/query-provider";
+import { SupabaseProvider } from "./_providers/supabase-provider";
+import { Header } from "./_components/header";
 
 export const metadata: Metadata = {
   title: "moment-stock",
@@ -13,7 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body className="min-h-screen bg-gray-50 text-gray-900">
+        <QueryProvider>
+          <SupabaseProvider>
+            <Header />
+            <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+          </SupabaseProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

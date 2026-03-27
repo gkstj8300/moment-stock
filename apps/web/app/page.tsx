@@ -1,54 +1,57 @@
-import {
-  formatPrice,
-  getStockLevel,
-  calcDiscountedPrice,
-  getRemainingTime,
-} from "@repo/shared";
-import { colors, breakpoints } from "@repo/ui/tokens";
+"use client";
 
-export default function Home() {
-  const level = getStockLevel(42, 100);
-  const stockColor = colors.stock[level];
-  const discounted = calcDiscountedPrice(89000, 30);
-  const remaining = getRemainingTime(
-    new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString()
-  );
+import { useProducts } from "@repo/shared";
+import { useSupabase } from "./_providers/supabase-provider";
+import { ProductCard } from "./_components/product-card";
+import { CountdownTimer } from "./_components/urgency";
+
+export default function HomePage() {
+  const supabase = useSupabase();
+  const { data: products, isLoading, error } = useProducts(supabase);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8">
-      <h1 className="text-4xl font-bold">moment-stock</h1>
-      <p className="text-lg text-gray-600">
-        실시간 재고 동기화 타임 세일 플랫폼
-      </p>
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border p-6 text-center">
-          <p className="text-sm text-gray-500">@repo/shared 연결 확인</p>
-          <p className="mt-2 text-2xl font-semibold">{formatPrice(89000)}</p>
-          <p className="mt-1 text-lg line-through text-gray-400">
-            {formatPrice(89000)}
-          </p>
-          <p className="text-xl font-bold text-red-500">
-            {formatPrice(discounted)}
-          </p>
-          <p className="mt-1" style={{ color: stockColor }}>
-            재고 상태: {level}
-          </p>
+    <div className="space-y-8">
+      {/* 타임세일 배너 */}
+      <section
+        className="rounded-xl bg-gradient-to-r from-red-500 to-orange-500 p-6 text-white sm:p-8"
+        aria-label="타임 세일 배너"
+      >
+        <h2 className="text-2xl font-bold sm:text-3xl">타임 세일 진행 중</h2>
+        <p className="mt-1 text-sm opacity-90">지금 바로 특가 상품을 만나보세요</p>
+        <div className="mt-4">
+          <span className="text-sm opacity-75">세일 종료까지</span>
+          <div className="mt-1">
+            <CountdownTimer
+              endsAt={new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString()}
+            />
+          </div>
         </div>
+      </section>
 
-        <div className="rounded-lg border p-6 text-center">
-          <p className="text-sm text-gray-500">@repo/ui 토큰 확인</p>
-          <p className="mt-2 text-sm">
-            모바일 브레이크포인트: {breakpoints.mobile}
-          </p>
-          <p className="mt-4 text-sm text-gray-500">남은 시간</p>
-          <p className="text-2xl font-mono font-bold">
-            {String(remaining.hours).padStart(2, "0")}:
-            {String(remaining.minutes).padStart(2, "0")}:
-            {String(remaining.seconds).padStart(2, "0")}
-          </p>
-        </div>
-      </div>
-    </main>
+      {/* 상품 목록 */}
+      <section aria-label="상품 목록">
+        <h2 className="mb-4 text-xl font-bold">전체 상품</h2>
+
+        {isLoading && (
+          <div className="py-12 text-center text-gray-500" role="status">
+            상품을 불러오는 중...
+          </div>
+        )}
+
+        {error && (
+          <div className="rounded-lg bg-red-50 p-4 text-red-600" role="alert">
+            상품을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
+          </div>
+        )}
+
+        {products && (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
   );
 }

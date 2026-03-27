@@ -4,11 +4,12 @@
  * - createBrowserClient: 브라우저 및 Expo 환경용 (AsyncStorage 어댑터 주입 가능)
  * - createServerClient: Next.js RSC/SSR용 (cookie 핸들러 주입)
  */
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient as BaseSupabaseClient } from "@supabase/supabase-js";
 import { createBrowserClient as createSSRBrowserClient, createServerClient as createSSRServerClient } from "@supabase/ssr";
 import type { Database } from "../types/database.types";
 
-export type SupabaseClient = ReturnType<typeof createClient<Database>>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SupabaseClient = BaseSupabaseClient<Database, any, any>;
 
 export interface SupabaseConfig {
   supabaseUrl: string;
