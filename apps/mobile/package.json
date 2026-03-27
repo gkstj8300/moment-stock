@@ -10,12 +10,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "2.1.2",
     "@repo/shared": "workspace:*",
     "@repo/ui": "workspace:*",
     "@supabase/supabase-js": "catalog:",
     "@supabase/ssr": "catalog:",
     "@tanstack/react-query": "catalog:",
     "expo": "~53.0.0",
+    "expo-local-authentication": "~15.0.0",
     "expo-router": "~5.0.0",
     "expo-secure-store": "~14.2.0",
     "expo-status-bar": "~2.2.0",
