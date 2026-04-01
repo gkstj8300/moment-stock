@@ -7,6 +7,7 @@
 - **Engine Designer (`persona-engine.md`)**: Supabase 스키마 설계, DB 트랜잭션(RPC), RLS 보안 정책 및 데이터 무결성 관리.
 - **Sync Master (`persona-sync.md`)**: 실시간 데이터 구독(Realtime), TanStack Query 상태 관리, 낙관적 업데이트 및 데이터 동기화 로직.
 - **UI Artisan (`persona-artisan.md`)**: 웹/앱 UI 컴포넌트 구현, 인터랙션 애니메이션, 플랫폼 특화 UX 및 디자인 시스템 관리.
+- **Product Designer (`persona-product-designer.md`)**: 디자인 토큰 정의, Figma 기반 UI 설계, 접근성(명도 대비·색상 무관 인식), UX Writing.
 
 ## 문서 작성 및 수정 규칙
 
@@ -23,6 +24,10 @@
 ## Phase 완료 검토 규칙
 
 각 Phase 구현 완료 시 반드시 `docs/rules/phase-review-rule.md`를 읽고 해당 절차를 따른다. 자동화 테스트 → 회귀 테스트 → 페르소나별 교차 검토 → 완료 기준 대조 → 결과 기록 순서로 진행하며, 검토 결과는 `docs/reviews/phase-{N}-review.md`에 기록한다.
+
+## 디자인 시스템 규칙
+
+UI/디자인 작업 시 반드시 `docs/rules/design-system-rules.md`를 먼저 읽고 해당 규칙을 따른다. 시멘틱 컬러, 컴포넌트 설계 전략(Flat/Compound), 실시간 UI 최적화, 접근성(명도 대비 4.5:1 이상), 간격(Figma auto layout 기반 토큰만 사용) 규칙을 포함한다.
 
 ## 상수·타입 배치
 
