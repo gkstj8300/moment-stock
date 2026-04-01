@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+/* ─────────────────────────────────────────
+   접근성 — 포커스 스타일
+   ───────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* 스킵 네비게이션 */
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  z-index: 9999;
+}

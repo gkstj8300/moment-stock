@@ -1,22 +1,12 @@
 -- Phase 2: 시드 데이터
 -- 상품 30건 + 재고, 타임세일 4건 (활성 2, 비활성 2)
--- 테스트 사용자는 Supabase Auth로 생성 (아래 스크립트)
-
-------------------------------------------------------------
--- 테스트 사용자 생성 (auth.users에 직접 삽입)
-------------------------------------------------------------
-INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, raw_user_meta_data, created_at, updated_at, confirmation_token, recovery_token)
-VALUES
-  ('a1111111-1111-1111-1111-111111111111', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'test1@moment-stock.com', crypt('password123', gen_salt('bf')), now(), '{"nickname": "테스트유저1"}'::jsonb, now(), now(), '', ''),
-  ('a2222222-2222-2222-2222-222222222222', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'test2@moment-stock.com', crypt('password123', gen_salt('bf')), now(), '{"nickname": "테스트유저2"}'::jsonb, now(), now(), '', '')
-ON CONFLICT (id) DO NOTHING;
-
--- identities 테이블에도 삽입 (Supabase Auth 요구)
-INSERT INTO auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
-VALUES
-  (gen_random_uuid(), 'a1111111-1111-1111-1111-111111111111', 'test1@moment-stock.com', '{"sub": "a1111111-1111-1111-1111-111111111111", "email": "test1@moment-stock.com"}'::jsonb, 'email', now(), now(), now()),
-  (gen_random_uuid(), 'a2222222-2222-2222-2222-222222222222', 'test2@moment-stock.com', '{"sub": "a2222222-2222-2222-2222-222222222222", "email": "test2@moment-stock.com"}'::jsonb, 'email', now(), now(), now())
-ON CONFLICT DO NOTHING;
+--
+-- ⚠️ 테스트 사용자는 seed.sql에서 생성하지 않는다.
+-- auth.users 직접 삽입은 Supabase Auth 내부 스키마와 충돌한다.
+-- db reset 후 아래 명령어로 Admin API를 통해 생성할 것:
+--
+--   scripts/create-test-users.sh
+--
 
 ------------------------------------------------------------
 -- 상품 30건

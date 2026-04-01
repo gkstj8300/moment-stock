@@ -34,13 +34,13 @@ export default function HomePage() {
 
         {isLoading && (
           <div className="py-12 text-center text-gray-500" role="status">
-            상품을 불러오는 중...
+            잠시만요...
           </div>
         )}
 
         {error && (
           <div className="rounded-lg bg-red-50 p-4 text-red-600" role="alert">
-            상품을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
+            상품을 불러오지 못했어요. 잠시 후 다시 시도해주세요.
           </div>
         )}
 

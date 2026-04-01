@@ -109,14 +109,17 @@ pnpm db:start
 # 3. DB 마이그레이션 + 시드 데이터 적용
 pnpm db:reset
 
-# 4. TypeScript 타입 생성
+# 4. 테스트 사용자 생성
+bash scripts/create-test-users.sh
+
+# 5. TypeScript 타입 생성
 pnpm db:gen-types
 
-# 5. 웹 개발 서버 실행
+# 6. 웹 개발 서버 실행
 pnpm turbo dev --filter=@repo/web
 # → http://localhost:3000
 
-# 6. 모바일 개발 서버 실행 (별도 터미널)
+# 7. 모바일 개발 서버 실행 (별도 터미널)
 pnpm turbo dev --filter=@repo/mobile
 # → Expo Go 앱으로 QR 스캔
 ```

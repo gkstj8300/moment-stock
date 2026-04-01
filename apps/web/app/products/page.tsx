@@ -19,7 +19,7 @@ export default function ProductsPage() {
 
       {isLoading && (
         <div className="py-12 text-center text-gray-500" role="status">
-          상품을 불러오는 중...
+          잠시만요...
         </div>
       )}
 
