@@ -29,7 +29,7 @@ interface ProductCardRootProps {
 
 function ProductCardRoot({ href, children, className = "" }: ProductCardRootProps) {
   const content = (
-    <div className={`group overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md ${className}`}>
+    <div className={`group overflow-hidden rounded-lg border border-[#f0f0f0] bg-white transition-all hover:shadow-lg hover:border-transparent motion-reduce:transition-none ${className}`}>
       {children}
     </div>
   );
@@ -53,7 +53,7 @@ function ProductCardRoot({ href, children, className = "" }: ProductCardRootProp
 
 function Image({ src, alt }: { src?: string | null; alt: string }) {
   return (
-    <div className="aspect-square overflow-hidden bg-gray-100">
+    <div className="aspect-[4/3] overflow-hidden rounded-t-lg bg-gray-100">
       {src ? (
         <img
           src={src}
@@ -71,7 +71,7 @@ function Image({ src, alt }: { src?: string | null; alt: string }) {
 }
 
 function Info({ children }: { children: React.ReactNode }) {
-  return <div className="space-y-2 p-4">{children}</div>;
+  return <div className="space-y-2.5 p-4 pt-3">{children}</div>;
 }
 
 function Name({ children }: { children: React.ReactNode }) {

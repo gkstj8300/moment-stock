@@ -47,8 +47,8 @@ export default function ProductsPage() {
       </div>
 
       {isLoading && (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => (
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3 rounded-lg bg-white p-3 shadow-sm">
               <Skeleton className="aspect-square w-full rounded-lg" />
               <Skeleton className="h-4 w-4/5" />
@@ -72,19 +72,23 @@ export default function ProductsPage() {
       )}
 
       {sortedProducts.length > 0 && (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {sortedProducts.map((product) => (
             <ProductCard key={product.id} href={`/products/${product.id}`}>
               <ProductCard.Image src={product.imageUrl} alt={product.name} />
               <ProductCard.Info>
                 <ProductCard.Name>{product.name}</ProductCard.Name>
                 <ProductCard.Price original={product.originalPrice} />
-                <ProductCard.Stock
-                  quantity={product.stock.quantity}
-                  initialQuantity={product.stock.initialQuantity}
-                  percentage={product.stock.stockPercentage}
-                  level={product.stock.level}
-                />
+                {product.stock.quantity <= 5 && product.stock.quantity > 0 && (
+                  <span className="inline-block rounded bg-[#fde8ec] px-2 py-0.5 text-xs font-semibold text-[#fa2454]">
+                    {product.stock.quantity}개 남음
+                  </span>
+                )}
+                {product.stock.quantity === 0 && (
+                  <span className="inline-block rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-500">
+                    품절
+                  </span>
+                )}
               </ProductCard.Info>
             </ProductCard>
           ))}
