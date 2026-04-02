@@ -3,6 +3,7 @@
 import { useOrders, formatPrice } from "@repo/shared";
 import { useSupabase } from "../_providers/supabase-provider";
 import { useEffect, useState } from "react";
+import { Badge, Skeleton } from "../_components/atoms";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "결제 대기",
@@ -11,11 +12,11 @@ const STATUS_LABELS: Record<string, string> = {
   refunded: "환불됨",
 };
 
-const STATUS_COLORS: Record<string, string> = {
-  pending: "bg-yellow-100 text-yellow-800",
-  confirmed: "bg-green-100 text-green-800",
-  cancelled: "bg-gray-100 text-gray-600",
-  refunded: "bg-red-100 text-red-800",
+const STATUS_VARIANTS: Record<string, "default" | "success" | "warning" | "error"> = {
+  pending: "warning",
+  confirmed: "success",
+  cancelled: "default",
+  refunded: "error",
 };
 
 export default function OrdersPage() {
@@ -32,30 +33,40 @@ export default function OrdersPage() {
 
   if (!userId) {
     return (
-      <div className="py-12 text-center text-gray-500">
-        로그인이 필요합니다.
+      <div className="py-16 text-center">
+        <p className="text-base text-gray-500">로그인이 필요해요</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">주문 내역</h1>
+      <h1 className="text-2xl font-bold text-gray-900">주문 내역</h1>
 
       {isLoading && (
-        <div className="py-12 text-center text-gray-500" role="status">
-          주문 내역을 불러오는 중...
+        <div className="space-y-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4">
+              <div className="space-y-2">
+                <Skeleton className="h-3 w-24" />
+                <Skeleton className="h-5 w-32" />
+              </div>
+              <Skeleton className="h-6 w-16 rounded-full" />
+            </div>
+          ))}
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 p-4 text-red-600" role="alert">
-          주문 내역을 불러오지 못했습니다.
+        <div className="rounded-xl bg-red-50 p-4 text-sm text-red-600" role="alert">
+          주문 내역을 불러오지 못했어요
         </div>
       )}
 
       {orders && orders.length === 0 && (
-        <p className="py-12 text-center text-gray-500">주문 내역이 없습니다.</p>
+        <p className="py-16 text-center text-base text-gray-500">
+          아직 주문 내역이 없어요
+        </p>
       )}
 
       {orders && orders.length > 0 && (
@@ -63,21 +74,22 @@ export default function OrdersPage() {
           {orders.map((order) => (
             <li
               key={order.id}
-              className="flex items-center justify-between rounded-lg border bg-white p-4"
+              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-sm"
             >
               <div>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs text-gray-400">
                   {new Date(order.createdAt).toLocaleDateString("ko-KR")}
                 </p>
-                <p className="font-medium">
-                  {formatPrice(order.totalPrice)} ({order.quantity}개)
+                <p className="mt-1 font-semibold text-gray-900 tabular-nums">
+                  {formatPrice(order.totalPrice)}{" "}
+                  <span className="text-sm font-normal text-gray-500">
+                    ({order.quantity}개)
+                  </span>
                 </p>
               </div>
-              <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_COLORS[order.status] ?? ""}`}
-              >
+              <Badge variant={STATUS_VARIANTS[order.status] ?? "default"} size="md">
                 {STATUS_LABELS[order.status] ?? order.status}
-              </span>
+              </Badge>
             </li>
           ))}
         </ul>

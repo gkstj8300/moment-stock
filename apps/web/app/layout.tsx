@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { QueryProvider } from "./_providers/query-provider";
 import { SupabaseProvider } from "./_providers/supabase-provider";
-import { Header } from "./_components/header";
-import { OfflineBanner } from "./_components/offline-banner";
+import { Header } from "./_components/organisms/header";
+import { OfflineBanner } from "./_components/molecules/offline-banner";
+import { ToastContainer } from "./_components/molecules/toast";
 
 export const metadata: Metadata = {
   title: "moment-stock",
@@ -20,8 +21,17 @@ export default function RootLayout({
       <body className="min-h-screen bg-gray-50 text-gray-900">
         <QueryProvider>
           <SupabaseProvider>
+            <a href="#main-content" className="skip-link">
+              본문으로 건너뛰기
+            </a>
             <Header />
-            <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+            <main
+              id="main-content"
+              className="mx-auto max-w-[1120px] px-4 py-8 sm:px-6"
+            >
+              {children}
+            </main>
+            <ToastContainer />
             <OfflineBanner />
           </SupabaseProvider>
         </QueryProvider>

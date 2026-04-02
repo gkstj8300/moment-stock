@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSupabase } from "../../_providers/supabase-provider";
+import { Button } from "../../_components/atoms";
 
 export default function LoginPage() {
   const supabase = useSupabase();
@@ -24,7 +25,7 @@ export default function LoginPage() {
     });
 
     if (authError) {
-      setError(authError.message);
+      setError("이메일 또는 비밀번호가 올바르지 않아요.");
       setLoading(false);
       return;
     }
@@ -35,11 +36,11 @@ export default function LoginPage() {
 
   return (
     <div className="mx-auto max-w-sm space-y-6 py-12">
-      <h1 className="text-center text-2xl font-bold">로그인</h1>
+      <h1 className="text-center text-2xl font-bold text-gray-900">로그인</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-900">
             이메일
           </label>
           <input
@@ -48,13 +49,14 @@ export default function LoginPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full min-h-[44px] rounded-lg border px-3 py-2"
+            className="mt-1.5 w-full min-h-[44px] rounded-xl border border-gray-200 px-4 py-2.5 text-base transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+            placeholder="email@example.com"
             autoComplete="email"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-900">
             비밀번호
           </label>
           <input
@@ -63,29 +65,26 @@ export default function LoginPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full min-h-[44px] rounded-lg border px-3 py-2"
+            className="mt-1.5 w-full min-h-[44px] rounded-xl border border-gray-200 px-4 py-2.5 text-base transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+            placeholder="비밀번호 입력"
             autoComplete="current-password"
           />
         </div>
 
         {error && (
-          <p className="text-sm text-red-600" role="alert">
+          <div className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600" role="alert">
             {error}
-          </p>
+          </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full min-h-[44px] rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
-        >
-          {loading ? "로그인 중..." : "로그인"}
-        </button>
+        <Button type="submit" size="lg" loading={loading} className="w-full">
+          로그인
+        </Button>
       </form>
 
       <p className="text-center text-sm text-gray-500">
-        계정이 없으신가요?{" "}
-        <Link href="/auth/signup" className="text-blue-600 hover:underline">
+        아직 계정이 없으신가요?{" "}
+        <Link href="/auth/signup" className="font-medium text-blue-600 hover:underline">
           회원가입
         </Link>
       </p>

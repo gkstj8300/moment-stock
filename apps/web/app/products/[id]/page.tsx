@@ -10,7 +10,9 @@ import {
 } from "@repo/shared";
 import type { CartItem } from "@repo/shared";
 import { useSupabase } from "../../_providers/supabase-provider";
-import { StockDisplay } from "../../_components/urgency";
+import { StockDisplay } from "../../_components/molecules";
+import { useToastStore } from "../../_components/molecules/toast";
+import { Button, Skeleton } from "../../_components/atoms";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -19,26 +21,30 @@ export default function ProductDetailPage() {
   const { data: product, isLoading, error } = useProductDetail(supabase, productId);
   const addItem = useCartStore((s) => s.addItem);
   const isOnline = useConnectionStore((s) => s.isOnline());
+  const showToast = useToastStore((s) => s.show);
 
-  // 실시간 재고 구독
-  useRealtimeStock({
-    supabase,
-    productId,
-    enabled: !!product,
-  });
+  useRealtimeStock({ supabase, productId, enabled: !!product });
 
   if (isLoading) {
     return (
-      <div className="py-12 text-center text-gray-500" role="status">
-        상품 정보를 불러오는 중...
+      <div className="grid gap-8 md:grid-cols-2">
+        <Skeleton className="aspect-square w-full rounded-xl" />
+        <div className="space-y-4">
+          <Skeleton className="h-8 w-3/4" />
+          <Skeleton className="h-5 w-full" />
+          <Skeleton className="h-5 w-2/3" />
+          <Skeleton className="h-10 w-1/3" />
+          <Skeleton className="h-2 w-full" />
+          <Skeleton className="h-12 w-full rounded-xl" />
+        </div>
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="rounded-lg bg-red-50 p-4 text-red-600" role="alert">
-        상품을 찾을 수 없습니다.
+      <div className="rounded-xl bg-red-50 p-4 text-sm text-red-600" role="alert">
+        상품을 찾을 수 없어요.
       </div>
     );
   }
@@ -55,24 +61,13 @@ export default function ProductDetailPage() {
       imageUrl: product.imageUrl,
     };
     addItem(item);
+    showToast("장바구니에 담았어요", "success");
   };
-
-  const buttonLabel = !isOnline
-    ? "오프라인 상태입니다"
-    : isSoldOut
-      ? "품절된 상품입니다"
-      : `${product.name} 장바구니에 담기`;
-
-  const buttonText = !isOnline
-    ? "오프라인"
-    : isSoldOut
-      ? "품절"
-      : "장바구니에 담기";
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
       {/* 이미지 */}
-      <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
+      <div className="aspect-square overflow-hidden rounded-xl bg-gray-100">
         {product.imageUrl ? (
           <img
             src={product.imageUrl}
@@ -89,15 +84,18 @@ export default function ProductDetailPage() {
       {/* 상품 정보 */}
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold">{product.name}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
           {product.description && (
-            <p className="mt-2 text-gray-600">{product.description}</p>
+            <p className="mt-2 text-base leading-relaxed text-gray-600">
+              {product.description}
+            </p>
           )}
         </div>
 
-        <p className="text-3xl font-bold">{formatPrice(product.originalPrice)}</p>
+        <p className="text-[28px] font-bold text-gray-900">
+          {formatPrice(product.originalPrice)}
+        </p>
 
-        {/* 실시간 재고 표시 */}
         <StockDisplay
           quantity={product.stock.quantity}
           initialQuantity={product.stock.initialQuantity}
@@ -105,15 +103,22 @@ export default function ProductDetailPage() {
           level={product.stock.level}
         />
 
-        <button
-          type="button"
+        <Button
+          size="lg"
+          variant={isSoldOut ? "secondary" : "primary"}
           onClick={handleAddToCart}
           disabled={isDisabled}
-          className="w-full min-h-[44px] rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400 motion-reduce:transition-none"
-          aria-label={buttonLabel}
+          className="w-full"
+          aria-label={
+            !isOnline
+              ? "오프라인 상태예요"
+              : isSoldOut
+                ? "품절된 상품이에요"
+                : `${product.name} 장바구니에 담기`
+          }
         >
-          {buttonText}
-        </button>
+          {!isOnline ? "오프라인" : isSoldOut ? "품절" : "장바구니에 담기"}
+        </Button>
       </div>
     </div>
   );
