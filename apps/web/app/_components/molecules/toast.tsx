@@ -36,9 +36,21 @@ export const useToastStore = create<ToastState>((set) => ({
 // ─────────────────────────────────────────
 
 const VARIANT_STYLES = {
-  success: "bg-green-600 text-white",
-  error: "bg-red-600 text-white",
-  info: "bg-gray-800 text-white",
+  success: "bg-[#09090b] text-white border-[#22c55e]/20",
+  error: "bg-[#09090b] text-white border-[#fa2454]/20",
+  info: "bg-[#09090b] text-white border-white/10",
+};
+
+const VARIANT_ICONS = {
+  success: "✓",
+  error: "✕",
+  info: "i",
+};
+
+const VARIANT_ICON_COLORS = {
+  success: "text-[#22c55e]",
+  error: "text-[#fa2454]",
+  info: "text-white/60",
 };
 
 export function ToastContainer() {
@@ -51,10 +63,13 @@ export function ToastContainer() {
       {items.map((toast) => (
         <div
           key={toast.id}
-          className={`animate-in fade-in slide-in-from-bottom-4 rounded-lg px-4 py-2.5 text-sm font-medium shadow-lg motion-reduce:animate-none ${VARIANT_STYLES[toast.variant]}`}
+          className={`toast-enter flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl ${VARIANT_STYLES[toast.variant]}`}
           role="status"
           aria-live="polite"
         >
+          <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-xs font-bold ${VARIANT_ICON_COLORS[toast.variant]}`}>
+            {VARIANT_ICONS[toast.variant]}
+          </span>
           {toast.message}
         </div>
       ))}

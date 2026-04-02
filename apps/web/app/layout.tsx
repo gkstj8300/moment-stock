@@ -8,8 +8,9 @@ import { OfflineBanner } from "./_components/molecules/offline-banner";
 import { ToastContainer } from "./_components/molecules/toast";
 
 export const metadata: Metadata = {
-  title: "moment-stock",
-  description: "실시간 재고 동기화 타임 세일 플랫폼",
+  title: "moment-stock — 찰나의 재고, 확실한 거래",
+  description:
+    "실시간 재고 동기화 타임 세일 플랫폼. 한정 수량, 선착순 특가를 놓치지 마세요.",
 };
 
 export default function RootLayout({
@@ -19,7 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="min-h-screen bg-white text-gray-900">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body className="noise-overlay min-h-screen bg-[#fafafa] text-[#0a0a0a]">
         <QueryProvider>
           <SupabaseProvider>
             <a href="#main-content" className="skip-link">
@@ -28,7 +37,7 @@ export default function RootLayout({
             <Header />
             <main
               id="main-content"
-              className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6"
+              className="mx-auto max-w-[1200px] px-4 pb-16 pt-6 sm:px-6 lg:px-8"
             >
               {children}
             </main>

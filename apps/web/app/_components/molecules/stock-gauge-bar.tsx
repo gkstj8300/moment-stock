@@ -9,11 +9,19 @@ interface StockGaugeBarProps {
 }
 
 const LEVEL_COLORS: Record<StockLevel, string> = {
-  high: "bg-green-500",
-  medium: "bg-yellow-500",
-  low: "bg-orange-500",
-  critical: "bg-red-500",
-  soldOut: "bg-gray-400",
+  high: "bg-[#22c55e]",
+  medium: "bg-[#eab308]",
+  low: "bg-[#f97316]",
+  critical: "bg-[#fa2454]",
+  soldOut: "bg-[#a1a1aa]",
+};
+
+const LEVEL_SHADOWS: Record<StockLevel, string> = {
+  high: "shadow-[0_0_8px_rgba(34,197,94,0.4)]",
+  medium: "shadow-[0_0_8px_rgba(234,179,8,0.4)]",
+  low: "shadow-[0_0_8px_rgba(249,115,22,0.4)]",
+  critical: "shadow-[0_0_8px_rgba(250,36,84,0.4)]",
+  soldOut: "",
 };
 
 export const StockGaugeBar = memo(function StockGaugeBar({
@@ -21,11 +29,12 @@ export const StockGaugeBar = memo(function StockGaugeBar({
   level,
 }: StockGaugeBarProps) {
   const colorClass = LEVEL_COLORS[level];
+  const shadowClass = LEVEL_SHADOWS[level];
   const clampedPct = Math.max(0, Math.min(100, percentage));
 
   return (
     <div
-      className="h-2 w-full overflow-hidden rounded-full bg-gray-200"
+      className="h-1.5 w-full overflow-hidden rounded-full bg-black/[0.06]"
       role="progressbar"
       aria-valuenow={clampedPct}
       aria-valuemin={0}
@@ -33,7 +42,7 @@ export const StockGaugeBar = memo(function StockGaugeBar({
       aria-label={`재고 ${clampedPct}% 남음`}
     >
       <div
-        className={`h-full rounded-full transition-all duration-300 motion-reduce:transition-none ${colorClass}`}
+        className={`h-full rounded-full spring-transition ${colorClass} ${shadowClass}`}
         style={{ width: `${clampedPct}%` }}
       />
     </div>

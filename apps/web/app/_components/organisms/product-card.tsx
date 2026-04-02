@@ -29,7 +29,9 @@ interface ProductCardRootProps {
 
 function ProductCardRoot({ href, children, className = "" }: ProductCardRootProps) {
   const content = (
-    <div className={`group overflow-hidden rounded-xl border border-[#f0f0f0] bg-white transition-all hover:shadow-lg hover:border-transparent motion-reduce:transition-none ${className}`}>
+    <div
+      className={`group overflow-hidden rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)] spring-transition hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-transparent hover:-translate-y-1 ${className}`}
+    >
       {children}
     </div>
   );
@@ -53,16 +55,16 @@ function ProductCardRoot({ href, children, className = "" }: ProductCardRootProp
 
 function Image({ src, alt }: { src?: string | null; alt: string }) {
   return (
-    <div className="relative aspect-square overflow-hidden rounded-t-xl bg-gray-100">
+    <div className="relative aspect-square overflow-hidden bg-[#f4f4f5]">
       {src ? (
         <img
           src={src}
           alt={alt}
-          className="h-full w-full object-cover transition-transform group-hover:scale-105 motion-reduce:transition-none"
+          className="h-full w-full object-cover spring-transition group-hover:scale-[1.04]"
           loading="lazy"
         />
       ) : (
-        <div className="flex h-full items-center justify-center text-gray-400">
+        <div className="flex h-full items-center justify-center text-sm text-[#a1a1aa]">
           No Image
         </div>
       )}
@@ -71,11 +73,15 @@ function Image({ src, alt }: { src?: string | null; alt: string }) {
 }
 
 function Info({ children }: { children: React.ReactNode }) {
-  return <div className="space-y-2.5 p-4 pt-3">{children}</div>;
+  return <div className="space-y-2 p-4">{children}</div>;
 }
 
 function Name({ children }: { children: React.ReactNode }) {
-  return <h3 className="line-clamp-2 text-sm font-medium leading-snug text-gray-900">{children}</h3>;
+  return (
+    <h3 className="line-clamp-2 text-sm font-medium leading-snug text-[#0a0a0a]">
+      {children}
+    </h3>
+  );
 }
 
 function Price({
@@ -95,17 +101,21 @@ function Price({
             {discountRate}%
           </Badge>
         )}
-        <span className="text-lg font-bold text-[#fa2454]">
+        <span className="text-lg font-bold tracking-tight text-[#fa2454] tabular-nums">
           {formatPrice(discounted)}
         </span>
-        <span className="text-xs text-gray-400 line-through">
+        <span className="text-xs text-[#a1a1aa] line-through tabular-nums">
           {formatPrice(original)}
         </span>
       </div>
     );
   }
 
-  return <p className="text-lg font-bold">{formatPrice(original)}</p>;
+  return (
+    <p className="text-lg font-bold tracking-tight tabular-nums">
+      {formatPrice(original)}
+    </p>
+  );
 }
 
 function Stock({

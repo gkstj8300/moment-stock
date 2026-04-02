@@ -13,6 +13,7 @@ import { useSupabase } from "../../_providers/supabase-provider";
 import { StockDisplay } from "../../_components/molecules";
 import { useToastStore } from "../../_components/molecules/toast";
 import { Button, Skeleton } from "../../_components/atoms";
+import { useScrollRevealAll } from "../../_hooks/use-scroll-reveal";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -22,20 +23,21 @@ export default function ProductDetailPage() {
   const addItem = useCartStore((s) => s.addItem);
   const isOnline = useConnectionStore((s) => s.isOnline());
   const showToast = useToastStore((s) => s.show);
+  const containerRef = useScrollRevealAll();
 
   useRealtimeStock({ supabase, productId, enabled: !!product });
 
   if (isLoading) {
     return (
-      <div className="grid gap-8 md:grid-cols-2">
-        <Skeleton className="aspect-square w-full rounded-xl" />
-        <div className="space-y-4">
-          <Skeleton className="h-8 w-3/4" />
-          <Skeleton className="h-5 w-full" />
-          <Skeleton className="h-5 w-2/3" />
-          <Skeleton className="h-10 w-1/3" />
-          <Skeleton className="h-2 w-full" />
-          <Skeleton className="h-12 w-full rounded-xl" />
+      <div className="grid gap-10 md:grid-cols-2">
+        <Skeleton className="aspect-square w-full rounded-3xl" />
+        <div className="space-y-5">
+          <Skeleton className="h-8 w-3/4 rounded-lg" />
+          <Skeleton className="h-5 w-full rounded" />
+          <Skeleton className="h-5 w-2/3 rounded" />
+          <Skeleton className="h-10 w-1/3 rounded-lg" />
+          <Skeleton className="h-2 w-full rounded-full" />
+          <Skeleton className="h-14 w-full rounded-xl" />
         </div>
       </div>
     );
@@ -43,7 +45,7 @@ export default function ProductDetailPage() {
 
   if (error || !product) {
     return (
-      <div className="rounded-xl bg-red-50 p-4 text-sm text-red-600" role="alert">
+      <div className="rounded-2xl bg-[#fde8ec] p-5 text-sm font-medium text-[#fa2454]" role="alert">
         상품을 찾을 수 없어요.
       </div>
     );
@@ -65,9 +67,9 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div ref={containerRef} className="grid gap-10 md:grid-cols-2">
       {/* 이미지 */}
-      <div className="aspect-square overflow-hidden rounded-xl bg-gray-100">
+      <div className="reveal aspect-square overflow-hidden rounded-3xl bg-[#f4f4f5]">
         {product.imageUrl ? (
           <img
             src={product.imageUrl}
@@ -75,40 +77,44 @@ export default function ProductDetailPage() {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-gray-400">
+          <div className="flex h-full items-center justify-center text-[#a1a1aa]">
             No Image
           </div>
         )}
       </div>
 
       {/* 상품 정보 */}
-      <div className="space-y-6">
+      <div className="reveal space-y-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-[#0a0a0a]">
+            {product.name}
+          </h1>
           {product.description && (
-            <p className="mt-2 text-base leading-relaxed text-gray-600">
+            <p className="mt-3 text-base leading-relaxed text-[#71717a]">
               {product.description}
             </p>
           )}
         </div>
 
-        <p className="text-[28px] font-bold text-gray-900">
+        <p className="text-[32px] font-bold tracking-tight text-[#0a0a0a] tabular-nums">
           {formatPrice(product.originalPrice)}
         </p>
 
-        <StockDisplay
-          quantity={product.stock.quantity}
-          initialQuantity={product.stock.initialQuantity}
-          percentage={product.stock.stockPercentage}
-          level={product.stock.level}
-        />
+        <div className="rounded-2xl border border-black/[0.06] bg-[#fafafa] p-5">
+          <StockDisplay
+            quantity={product.stock.quantity}
+            initialQuantity={product.stock.initialQuantity}
+            percentage={product.stock.stockPercentage}
+            level={product.stock.level}
+          />
+        </div>
 
         <Button
           size="lg"
           variant={isSoldOut ? "secondary" : "primary"}
           onClick={handleAddToCart}
           disabled={isDisabled}
-          className="w-full"
+          className="w-full text-base"
           aria-label={
             !isOnline
               ? "오프라인 상태예요"

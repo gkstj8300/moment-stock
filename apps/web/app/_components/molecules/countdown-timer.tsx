@@ -30,7 +30,7 @@ export const CountdownTimer = memo(function CountdownTimer({
 
   if (time.isExpired) {
     return (
-      <span className="text-sm font-medium text-gray-500" aria-live="polite">
+      <span className="text-sm font-medium text-[#a1a1aa]" aria-live="polite">
         세일 종료
       </span>
     );
@@ -40,13 +40,23 @@ export const CountdownTimer = memo(function CountdownTimer({
 
   return (
     <time
-      className={`font-mono text-lg font-bold tabular-nums ${isUrgent ? "text-red-500" : "text-gray-900"}`}
+      className={`inline-flex items-center gap-1 font-mono text-lg font-bold tabular-nums tracking-tight ${
+        isUrgent ? "text-[#fa2454]" : "text-[#0a0a0a]"
+      }`}
       aria-live="polite"
       aria-label={`남은 시간 ${time.hours}시간 ${time.minutes}분 ${time.seconds}초`}
     >
-      {String(time.hours).padStart(2, "0")}:
-      {String(time.minutes).padStart(2, "0")}:
-      {String(time.seconds).padStart(2, "0")}
+      <span className={`rounded-lg px-2 py-1 ${isUrgent ? "bg-[#fa2454]/10" : "bg-black/[0.04]"}`}>
+        {String(time.hours).padStart(2, "0")}
+      </span>
+      <span className={`text-sm ${isUrgent ? "text-[#fa2454]/60" : "text-[#a1a1aa]"}`}>:</span>
+      <span className={`rounded-lg px-2 py-1 ${isUrgent ? "bg-[#fa2454]/10" : "bg-black/[0.04]"}`}>
+        {String(time.minutes).padStart(2, "0")}
+      </span>
+      <span className={`text-sm ${isUrgent ? "text-[#fa2454]/60" : "text-[#a1a1aa]"}`}>:</span>
+      <span className={`rounded-lg px-2 py-1 ${isUrgent ? "bg-[#fa2454]/10" : "bg-black/[0.04]"}`}>
+        {String(time.seconds).padStart(2, "0")}
+      </span>
     </time>
   );
 });

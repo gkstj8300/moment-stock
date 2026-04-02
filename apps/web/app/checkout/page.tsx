@@ -21,8 +21,8 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="py-16 text-center">
-        <p className="text-base text-gray-500">결제할 상품이 없어요</p>
+      <div className="flex flex-col items-center gap-4 py-24 text-center">
+        <p className="text-base font-medium text-[#a1a1aa]">결제할 상품이 없어요</p>
       </div>
     );
   }
@@ -81,31 +81,37 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="mx-auto max-w-lg space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">결제</h1>
+    <div className="mx-auto max-w-lg space-y-8">
+      <div>
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#fa2454]">
+          Checkout
+        </span>
+        <h1 className="mt-1 text-3xl font-bold tracking-tight text-[#0a0a0a]">결제</h1>
+      </div>
 
-      <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5">
+      <div className="space-y-4 overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm">
         {items.map((item) => (
           <div key={item.productId} className="flex justify-between text-sm">
-            <span className="text-gray-600">
+            <span className="text-[#71717a]">
               {item.productName} × {item.quantity}
             </span>
-            <span className="font-semibold text-gray-900 tabular-nums">
+            <span className="font-semibold text-[#0a0a0a] tabular-nums">
               {formatPrice(item.unitPrice * item.quantity)}
             </span>
           </div>
         ))}
-        <hr className="border-gray-100" />
-        <div className="flex justify-between">
-          <span className="text-lg font-bold text-gray-900">총 결제 금액</span>
-          <span className="text-xl font-bold text-[#fa2454] tabular-nums">
-            {formatPrice(totalPrice)}
-          </span>
+        <div className="border-t border-black/[0.04] pt-4">
+          <div className="flex justify-between">
+            <span className="text-lg font-bold text-[#0a0a0a]">총 결제 금액</span>
+            <span className="text-2xl font-bold tracking-tight text-[#fa2454] tabular-nums">
+              {formatPrice(totalPrice)}
+            </span>
+          </div>
         </div>
       </div>
 
       {error && (
-        <div className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600" role="alert">
+        <div className="rounded-2xl bg-[#fde8ec] px-5 py-3.5 text-sm font-medium text-[#fa2454]" role="alert">
           {error}
         </div>
       )}
@@ -115,7 +121,7 @@ export default function CheckoutPage() {
         onClick={handleCheckout}
         loading={loading}
         disabled={!isOnline}
-        className="w-full"
+        className="w-full text-base"
       >
         {!isOnline ? "오프라인 상태예요" : "결제하기"}
       </Button>

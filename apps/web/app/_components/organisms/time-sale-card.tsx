@@ -20,7 +20,7 @@ function TimeSaleCardRoot({ href, children }: TimeSaleCardRootProps) {
   return (
     <Link
       href={href}
-      className="block rounded-lg border bg-white p-5 transition-shadow hover:shadow-md"
+      className="group block overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] spring-transition hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-transparent hover:-translate-y-1"
     >
       {children}
     </Link>
@@ -33,7 +33,7 @@ function TimeSaleCardRoot({ href, children }: TimeSaleCardRootProps) {
 
 function Header({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-3 flex items-center justify-between">{children}</div>
+    <div className="mb-4 flex items-center justify-between">{children}</div>
   );
 }
 
@@ -50,7 +50,11 @@ function Timer({ endsAt }: { endsAt: string }) {
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-lg font-semibold">{children}</h3>;
+  return (
+    <h3 className="text-lg font-bold tracking-tight text-[#0a0a0a]">
+      {children}
+    </h3>
+  );
 }
 
 function Price({
@@ -61,11 +65,11 @@ function Price({
   sale: number;
 }) {
   return (
-    <div className="mt-2 flex items-baseline gap-2">
-      <span className="text-sm text-gray-400 line-through">
+    <div className="mt-3 flex items-baseline gap-2.5">
+      <span className="text-sm text-[#a1a1aa] line-through tabular-nums">
         {formatPrice(original)}
       </span>
-      <span className="text-xl font-bold text-red-600">
+      <span className="text-2xl font-bold tracking-tight text-[#fa2454] tabular-nums">
         {formatPrice(sale)}
       </span>
     </div>
@@ -84,7 +88,7 @@ function Stock({
   level: StockLevel;
 }) {
   return (
-    <div className="mt-3">
+    <div className="mt-4">
       <StockDisplay
         quantity={quantity}
         initialQuantity={initialQuantity}

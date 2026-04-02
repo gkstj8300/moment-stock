@@ -12,7 +12,7 @@ export const ScarcityBadge = memo(function ScarcityBadge({
   if (quantity <= 0) {
     return (
       <span
-        className="inline-block rounded-full bg-gray-500 px-2.5 py-0.5 text-xs font-semibold text-white"
+        className="inline-block rounded-md bg-[#71717a] px-2.5 py-0.5 text-xs font-semibold text-white"
         aria-label="품절"
       >
         품절
@@ -23,7 +23,7 @@ export const ScarcityBadge = memo(function ScarcityBadge({
   if (quantity <= 3) {
     return (
       <span
-        className="inline-block animate-pulse rounded-full bg-red-500 px-2.5 py-0.5 text-xs font-semibold text-white motion-reduce:animate-none"
+        className="inline-block animate-pulse rounded-md bg-[#fa2454] px-2.5 py-0.5 text-xs font-semibold text-white shadow-[0_2px_8px_rgba(250,36,84,0.4)] motion-reduce:animate-none"
         aria-label={`마지막 ${quantity}개`}
       >
         마지막 {quantity}개!
@@ -34,7 +34,7 @@ export const ScarcityBadge = memo(function ScarcityBadge({
   if (quantity <= 5) {
     return (
       <span
-        className="inline-block rounded-full bg-orange-500 px-2.5 py-0.5 text-xs font-semibold text-white"
+        className="inline-block rounded-md bg-[#f97316] px-2.5 py-0.5 text-xs font-semibold text-white"
         aria-label={`${quantity}개 남음, 곧 품절`}
       >
         곧 품절
