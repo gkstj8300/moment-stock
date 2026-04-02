@@ -29,7 +29,7 @@ interface ProductCardRootProps {
 
 function ProductCardRoot({ href, children, className = "" }: ProductCardRootProps) {
   const content = (
-    <div className={`group overflow-hidden rounded-lg border border-[#f0f0f0] bg-white transition-all hover:shadow-lg hover:border-transparent motion-reduce:transition-none ${className}`}>
+    <div className={`group overflow-hidden rounded-xl border border-[#f0f0f0] bg-white transition-all hover:shadow-lg hover:border-transparent motion-reduce:transition-none ${className}`}>
       {children}
     </div>
   );
@@ -53,7 +53,7 @@ function ProductCardRoot({ href, children, className = "" }: ProductCardRootProp
 
 function Image({ src, alt }: { src?: string | null; alt: string }) {
   return (
-    <div className="aspect-[4/3] overflow-hidden rounded-t-lg bg-gray-100">
+    <div className="relative aspect-square overflow-hidden rounded-t-xl bg-gray-100">
       {src ? (
         <img
           src={src}
@@ -75,7 +75,7 @@ function Info({ children }: { children: React.ReactNode }) {
 }
 
 function Name({ children }: { children: React.ReactNode }) {
-  return <h3 className="truncate text-sm font-medium">{children}</h3>;
+  return <h3 className="line-clamp-2 text-sm font-medium leading-snug text-gray-900">{children}</h3>;
 }
 
 function Price({

@@ -47,7 +47,7 @@ export default function ProductsPage() {
       </div>
 
       {isLoading && (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3 rounded-lg bg-white p-3 shadow-sm">
               <Skeleton className="aspect-square w-full rounded-lg" />
@@ -72,7 +72,7 @@ export default function ProductsPage() {
       )}
 
       {sortedProducts.length > 0 && (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
           {sortedProducts.map((product) => (
             <ProductCard key={product.id} href={`/products/${product.id}`}>
               <ProductCard.Image src={product.imageUrl} alt={product.name} />

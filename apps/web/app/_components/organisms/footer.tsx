@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="mt-16 border-t border-[#f0f0f0] bg-[#f7f8fa]">
-      <div className="mx-auto max-w-[1120px] px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-3">
           <div>
             <p className="text-sm font-bold text-gray-900">

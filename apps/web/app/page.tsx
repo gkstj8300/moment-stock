@@ -6,6 +6,27 @@ import { useSupabase } from "./_providers/supabase-provider";
 import { ProductCard } from "./_components/organisms";
 import { CountdownTimer } from "./_components/molecules";
 import { Skeleton } from "./_components/atoms";
+import {
+  Zap,
+  Tag,
+  Clock,
+  Gift,
+  Flame,
+  ShoppingBag,
+  Star,
+  Truck,
+} from "lucide-react";
+
+const CATEGORIES = [
+  { icon: Zap, label: "타임세일", href: "/time-sale" },
+  { icon: Flame, label: "베스트", href: "/products" },
+  { icon: Tag, label: "특가", href: "/products" },
+  { icon: Gift, label: "신상품", href: "/products" },
+  { icon: Clock, label: "마감임박", href: "/products" },
+  { icon: ShoppingBag, label: "전체상품", href: "/products" },
+  { icon: Star, label: "추천", href: "/products" },
+  { icon: Truck, label: "무료배송", href: "/products" },
+];
 
 export default function HomePage() {
   const supabase = useSupabase();
@@ -13,17 +34,22 @@ export default function HomePage() {
 
   return (
     <div className="space-y-10">
-      {/* 타임세일 프로모션 배너 */}
+      {/* 1. 메인 비주얼 배너 */}
       <section
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#fa2454] to-[#ff6b81] p-8 text-white sm:p-10"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#fa2454] to-[#ff6b81] px-8 py-10 text-white sm:px-12 sm:py-14"
         aria-label="타임 세일 배너"
       >
-        <div className="relative z-10">
-          <h2 className="text-3xl font-bold sm:text-4xl">타임 세일 진행 중</h2>
-          <p className="mt-2 text-base opacity-90">
-            지금 바로 특가 상품을 만나보세요
+        <div className="relative z-10 max-w-lg">
+          <p className="text-sm font-medium opacity-80">기간한정 특가</p>
+          <h2 className="mt-1 text-3xl font-bold leading-tight sm:text-4xl">
+            타임 세일 진행 중
+          </h2>
+          <p className="mt-3 text-base leading-relaxed opacity-90">
+            지금 바로 특가 상품을 만나보세요.
+            <br className="hidden sm:block" />
+            한정 수량, 선착순 마감!
           </p>
-          <div className="mt-6 flex items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-4">
             <div>
               <span className="text-xs opacity-75">세일 종료까지</span>
               <div className="mt-1">
@@ -34,56 +60,78 @@ export default function HomePage() {
             </div>
             <Link
               href="/time-sale"
-              className="ml-auto rounded-lg bg-white px-5 py-2.5 text-sm font-bold text-[#fa2454] transition-opacity hover:opacity-90 motion-reduce:transition-none"
+              className="rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#fa2454] shadow-sm transition-all hover:shadow-md hover:scale-[1.02] motion-reduce:hover:scale-100 motion-reduce:transition-none"
             >
               지금 보러가기 →
             </Link>
           </div>
         </div>
         {/* 배경 장식 */}
-        <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-white/10" />
-        <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-white/5" />
+        <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10" aria-hidden="true" />
+        <div className="absolute -bottom-6 right-16 h-32 w-32 rounded-full bg-white/5" aria-hidden="true" />
       </section>
 
-      {/* 오늘의 추천 */}
-      <section aria-label="상품 목록">
+      {/* 2. 카테고리 퀵 메뉴 */}
+      <section aria-label="카테고리">
+        <h2 className="sr-only">카테고리</h2>
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:justify-center sm:gap-4">
+          {CATEGORIES.map(({ icon: Icon, label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="flex min-w-[72px] flex-shrink-0 flex-col items-center gap-2 rounded-xl px-3 py-3 text-center transition-colors hover:bg-gray-50 motion-reduce:transition-none"
+              aria-label={label}
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#fff5f7]">
+                <Icon className="h-5 w-5 text-[#fa2454]" strokeWidth={1.5} />
+              </div>
+              <span className="text-xs font-medium text-gray-700">{label}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. 큐레이션 상품 그리드 */}
+      <section aria-label="추천 상품">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-gray-900">오늘의 추천</h2>
           <Link
             href="/products"
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
           >
             전체보기 &gt;
           </Link>
         </div>
 
         {isLoading && (
-          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="space-y-3 rounded-lg bg-white p-3 shadow-sm">
-                <Skeleton className="aspect-square w-full rounded-lg" />
-                <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-5 w-2/5" />
-                <Skeleton className="h-1.5 w-full" />
+          <div className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="space-y-3 rounded-xl border border-[#f0f0f0] bg-white p-0">
+                <Skeleton className="aspect-square w-full rounded-t-xl" />
+                <div className="space-y-2 px-3 pb-3">
+                  <Skeleton className="h-4 w-4/5" />
+                  <Skeleton className="h-4 w-3/5" />
+                  <Skeleton className="h-5 w-2/5" />
+                </div>
               </div>
             ))}
           </div>
         )}
 
         {error && (
-          <div className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-600" role="alert">
+          <div className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-600" role="alert">
             상품을 불러오지 못했어요. 잠시 후 다시 시도해주세요.
           </div>
         )}
 
         {products && products.length === 0 && (
-          <p className="py-16 text-center text-base text-gray-500">
+          <p className="py-16 text-center text-base text-gray-400">
             등록된 상품이 없어요
           </p>
         )}
 
         {products && products.length > 0 && (
-          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
             {products.map((product) => (
               <ProductCard key={product.id} href={`/products/${product.id}`}>
                 <ProductCard.Image src={product.imageUrl} alt={product.name} />

@@ -10,7 +10,7 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white">
       {/* 상단 GNB */}
       <div className="border-b border-[#f0f0f0]">
-        <div className="mx-auto flex h-14 max-w-[1120px] items-center gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-[1200px] items-center gap-4 px-4 sm:px-6">
           <Link
             href="/"
             className="flex-shrink-0 text-xl font-bold text-gray-900"
@@ -77,7 +77,7 @@ export function Header() {
       {/* 서브 네비 */}
       <div className="border-b border-[#f0f0f0]">
         <nav
-          className="mx-auto flex h-11 max-w-[1120px] items-center gap-6 px-4 sm:px-6"
+          className="mx-auto flex h-11 max-w-[1200px] items-center gap-6 px-4 sm:px-6"
           aria-label="카테고리 네비게이션"
         >
           <Link
