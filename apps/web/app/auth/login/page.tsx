@@ -35,59 +35,56 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="mx-auto max-w-sm space-y-6 py-12">
-      <h1 className="text-center text-2xl font-bold text-gray-900">로그인</h1>
+    <div className="flex min-h-[60vh] items-center justify-center bg-[#f7f8fa] -mx-4 -my-8 px-4 py-16 sm:-mx-6 sm:px-6">
+      <div className="w-full max-w-sm space-y-8">
+        <h1 className="text-center text-2xl font-bold text-gray-900">
+          <span className="text-[#fa2454]">m</span>oment-stock
+        </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-            이메일
-          </label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1.5 w-full min-h-[44px] rounded-xl border border-gray-200 px-4 py-2.5 text-base transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
-            placeholder="email@example.com"
-            autoComplete="email"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-900">
-            비밀번호
-          </label>
-          <input
-            id="password"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1.5 w-full min-h-[44px] rounded-xl border border-gray-200 px-4 py-2.5 text-base transition-colors focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
-            placeholder="비밀번호 입력"
-            autoComplete="current-password"
-          />
-        </div>
-
-        {error && (
-          <div className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600" role="alert">
-            {error}
+        <form onSubmit={handleSubmit} className="space-y-0">
+          <div className="overflow-hidden rounded-lg border border-[#f0f0f0] bg-white">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full min-h-[52px] border-b border-[#f0f0f0] px-4 text-base text-gray-900 placeholder-gray-400 focus:outline-none"
+              placeholder="이메일"
+              autoComplete="email"
+            />
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full min-h-[52px] px-4 text-base text-gray-900 placeholder-gray-400 focus:outline-none"
+              placeholder="비밀번호"
+              autoComplete="current-password"
+            />
           </div>
-        )}
 
-        <Button type="submit" size="lg" loading={loading} className="w-full">
-          로그인
-        </Button>
-      </form>
+          {error && (
+            <div className="mt-3 rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-600" role="alert">
+              {error}
+            </div>
+          )}
 
-      <p className="text-center text-sm text-gray-500">
-        아직 계정이 없으신가요?{" "}
-        <Link href="/auth/signup" className="font-medium text-blue-600 hover:underline">
-          회원가입
-        </Link>
-      </p>
+          <div className="mt-4">
+            <Button type="submit" size="lg" loading={loading} className="w-full h-[52px] rounded-lg text-base">
+              로그인
+            </Button>
+          </div>
+        </form>
+
+        <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
+          <Link href="#" className="hover:text-gray-700">
+            비밀번호 재설정
+          </Link>
+          <Link href="/auth/signup" className="hover:text-gray-700">
+            회원가입
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

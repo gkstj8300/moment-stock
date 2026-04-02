@@ -102,9 +102,9 @@ function WaitlistContent() {
 
       {status === "waiting" && position !== null && (
         <>
-          <div className="rounded-xl bg-blue-50 p-8">
-            <p className="text-sm text-blue-600">현재 대기 순번</p>
-            <p className="mt-2 text-5xl font-bold text-blue-700" aria-live="polite">
+          <div className="rounded-xl bg-[#fff5f7] p-8">
+            <p className="text-sm text-[#fa2454]">현재 대기 순번</p>
+            <p className="mt-2 text-5xl font-bold text-[#fa2454]" aria-live="polite">
               {position}번
             </p>
           </div>

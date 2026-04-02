@@ -29,7 +29,7 @@ interface ProductCardRootProps {
 
 function ProductCardRoot({ href, children, className = "" }: ProductCardRootProps) {
   const content = (
-    <div className={`group overflow-hidden rounded-lg border bg-white transition-shadow hover:shadow-md ${className}`}>
+    <div className={`group overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md ${className}`}>
       {children}
     </div>
   );
@@ -95,7 +95,7 @@ function Price({
             {discountRate}%
           </Badge>
         )}
-        <span className="text-lg font-bold text-red-600">
+        <span className="text-lg font-bold text-[#fa2454]">
           {formatPrice(discounted)}
         </span>
         <span className="text-xs text-gray-400 line-through">

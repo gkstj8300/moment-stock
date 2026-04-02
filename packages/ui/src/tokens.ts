@@ -8,6 +8,18 @@
 // ─────────────────────────────────────────
 
 export const palette = {
+  primary: {
+    50: "#fff5f7",
+    100: "#fde8ec",
+    200: "#fbccd5",
+    300: "#f8a0b2",
+    400: "#fc5c7d",
+    500: "#fa2454",
+    600: "#e01e4a",
+    700: "#c91a40",
+    800: "#a11535",
+    900: "#7a102a",
+  },
   blue: {
     50: "#eff6ff",
     100: "#dbeafe",
@@ -74,7 +86,7 @@ export const palette = {
 export const lightColors = {
   background: {
     primary: palette.white,
-    secondary: palette.gray[50],
+    secondary: "#f7f8fa",
     tertiary: palette.gray[100],
     inverse: palette.gray[900],
   },
@@ -86,7 +98,7 @@ export const lightColors = {
     inverse: palette.white,
   },
   border: {
-    default: palette.gray[200],
+    default: "#f0f0f0",
     strong: palette.gray[300],
     subtle: palette.gray[100],
   },
@@ -96,9 +108,9 @@ export const lightColors = {
     overlay: "rgba(0, 0, 0, 0.5)",
   },
   interactive: {
-    default: palette.blue[600],
-    hover: palette.blue[700],
-    pressed: palette.blue[800],
+    default: palette.primary[500],
+    hover: palette.primary[600],
+    pressed: palette.primary[700],
     disabled: palette.gray[300],
   },
   stock: {

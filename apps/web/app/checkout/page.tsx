@@ -98,7 +98,7 @@ export default function CheckoutPage() {
         <hr className="border-gray-100" />
         <div className="flex justify-between">
           <span className="text-lg font-bold text-gray-900">총 결제 금액</span>
-          <span className="text-xl font-bold text-blue-600 tabular-nums">
+          <span className="text-xl font-bold text-[#fa2454] tabular-nums">
             {formatPrice(totalPrice)}
           </span>
         </div>

@@ -12,7 +12,7 @@ export default function TimeSalePage() {
   return (
     <div className="space-y-6">
       {/* 히어로 배너 */}
-      <section className="rounded-xl bg-gradient-to-r from-red-500 to-orange-500 p-6 text-white sm:p-8">
+      <section className="rounded-2xl bg-gradient-to-r from-[#fa2454] to-[#ff6b81] p-6 text-white sm:p-8">
         <h1 className="text-2xl font-bold sm:text-4xl">타임 세일</h1>
         <p className="mt-1 text-base opacity-90">한정 시간, 한정 수량 특가</p>
       </section>

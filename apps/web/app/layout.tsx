@@ -3,6 +3,7 @@ import "./globals.css";
 import { QueryProvider } from "./_providers/query-provider";
 import { SupabaseProvider } from "./_providers/supabase-provider";
 import { Header } from "./_components/organisms/header";
+import { Footer } from "./_components/organisms/footer";
 import { OfflineBanner } from "./_components/molecules/offline-banner";
 import { ToastContainer } from "./_components/molecules/toast";
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
+      <body className="min-h-screen bg-white text-gray-900">
         <QueryProvider>
           <SupabaseProvider>
             <a href="#main-content" className="skip-link">
@@ -31,6 +32,7 @@ export default function RootLayout({
             >
               {children}
             </main>
+            <Footer />
             <ToastContainer />
             <OfflineBanner />
           </SupabaseProvider>

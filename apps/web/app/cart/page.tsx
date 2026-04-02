@@ -98,7 +98,7 @@ export default function CartPage() {
 
       <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5">
         <span className="text-lg font-bold text-gray-900">총 결제 금액</span>
-        <span className="text-2xl font-bold text-blue-600 tabular-nums">
+        <span className="text-2xl font-bold text-[#fa2454] tabular-nums">
           {formatPrice(totalPrice)}
         </span>
       </div>
